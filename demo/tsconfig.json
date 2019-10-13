@@ -1,0 +1,19 @@
+{
+    "include": [
+        "./js/**/*.ts"
+    ],
+    "compilerOptions": {
+        "target": "es5",
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "noEmitOnError": true,
+        "lib": [
+            "dom",
+            "es5",
+            "es2015",
+            "es2015.iterable",
+            "es2015.promise",
+            "es2016"
+        ]
+    }
+}

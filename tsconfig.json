@@ -1,0 +1,21 @@
+{
+    "include": [
+        "./src/lib/**/*.ts"
+    ],
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "declaration": true,
+        "noImplicitAny": true,
+        "noEmitOnError": true,
+        "lib": [
+            "dom",
+            "es5",
+            "es2015",
+            "es2015.iterable",
+            "es2015.promise",
+            "es2016"
+        ],
+        "outDir": "dist"
+    }
+}

@@ -1,0 +1,44 @@
+{
+    "name": "mab-bootstrap-taginput",
+    "version": "0.0.4",
+    "description": "A nice, simple tag input with minimal dependencies, designed for Bootstrap 4.X.",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "files": [
+        "dist/*.js",
+        "dist/*.d.ts",
+        "css/*.css"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/markashleybell/MAB.Bootstrap.TagInput.git"
+    },
+    "keywords": [
+        "tag",
+        "input",
+        "bootstrap"
+    ],
+    "author": "Mark Ashley Bell",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/markashleybell/MAB.Bootstrap.TagInput/issues"
+    },
+    "homepage": "https://github.com/markashleybell/MAB.Bootstrap.TagInput#readme",
+    "devDependencies": {
+        "@types/mustache": "0.8.30",
+        "copyfiles": "2.1.1",
+        "del-cli": "3.0.0",
+        "npm-run-all": "4.1.5",
+        "typescript": "3.6.3",
+        "tslint": "5.18.0"
+    },
+    "peerDependencies": {
+        "mustache": "3.1.0"
+    },
+    "scripts": {
+        "clean": "del-cli dist css",
+        "copycss": "copyfiles -u 2 src/css/mab-bootstrap-taginput.css css",
+        "compile": "tsc",
+        "build": "run-s clean compile copycss"
+    }
+}

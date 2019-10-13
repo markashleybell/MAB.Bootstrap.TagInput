@@ -1,0 +1,84 @@
+.console {
+    background-color: #e0e0e0;
+    padding: 10px 15px;
+    border-radius: 4px;
+}
+
+.narrow {
+    width: 200px;
+}
+
+.custom {
+    display: flex;
+    cursor: text;
+}
+
+.custom.form-control {
+    line-height: normal;
+}
+
+.custom-tag {
+    color: #fff;
+    background-color: #ff00ff;
+    display: inline-flex;
+    align-items: center;
+    padding: .25em .4em;
+    font-size: 90%;
+    font-weight: 700;
+    white-space: nowrap;
+    margin-right: 5px;
+    transition: background-color 1600ms ease-in;
+}
+
+.custom-tag .fa {
+    margin-left: 5px;
+    font-size: 80%;
+    cursor: pointer;
+}
+
+.custom-tag-warning {
+    background-color:#cc0000;
+    transition: none;
+}
+
+.custom-input {
+    border: solid 1px transparent;
+    outline: none;
+    width: 100px;
+}
+
+.custom-input.custom-input-narrowed {
+    width: 1px;
+}
+
+.custom-input-container {
+    position: relative;
+}
+
+.custom-suggestions {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    width: 400px;
+    min-height: 30px;
+    background-color: #fff;
+    border: solid 1px #e0e0e0;
+    padding: 3px 0;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.25);
+    z-index: 10000;
+}
+
+.custom-suggestions-hidden {
+    display: none;
+}
+
+.custom-suggestion {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.custom-suggestion-selected,
+.custom-suggestion:hover {
+    background-color: #ff00ff;
+    color: #fff;
+}
