@@ -1,6 +1,6 @@
 import { ITag, TagInput } from '../../src/lib';
 
-import '../../src/css/mab-bootstrap-taginput.css';
+import '../../src/css/standard.css';
 
 const stringData: string[] = [
     'dog',
