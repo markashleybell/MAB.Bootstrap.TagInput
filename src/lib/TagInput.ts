@@ -20,7 +20,6 @@ enum KeyCodes {
     ENTER = 13,
     TAB = 9,
     BACKSPACE = 8,
-    HYPHEN = 45,
     HOME = 35,
     END = 36,
     LEFT_ARROW = 37,
@@ -40,7 +39,6 @@ const controlKeyCodes = [
     KeyCodes.ENTER,
     KeyCodes.TAB,
     KeyCodes.BACKSPACE,
-    KeyCodes.HYPHEN,
     KeyCodes.HOME,
     KeyCodes.END,
     KeyCodes.LEFT_ARROW,
@@ -53,7 +51,10 @@ const controlKeyCodes = [
 // Note that these are *key* codes, so the letter codes are the same for upper and lower case
 const alphaNumericKeyCodes = range(48, 1, 10).concat(range(65, 1, 26));
 
-const standardValidTagCharacterKeyCodes: number[] = alphaNumericKeyCodes.concat(controlKeyCodes);
+// The only symbol allowed by default is minus (-), which can be used to separate words in a tag
+const symbolKeyCodes = [189];
+
+const standardValidTagCharacterKeyCodes: number[] = alphaNumericKeyCodes.concat(symbolKeyCodes).concat(controlKeyCodes);
 
 const standardHtmlTemplate =
 `<div class="{{globalCssClassPrefix}}{{#containerClasses}} {{containerClasses}}{{/containerClasses}}">
