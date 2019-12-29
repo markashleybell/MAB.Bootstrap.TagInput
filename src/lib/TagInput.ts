@@ -252,9 +252,10 @@ export class TagInput<T> {
                     const inputValue = this.getTextInputValue(this.allowUpperCase);
 
                     if (inputValue.length >= this.minCharsBeforeShowingSuggestions) {
+                        const searchValue = inputValue.toUpperCase();
                         const suggestions = this.data
                             .filter(t => !this.currentSelection.includes(t))
-                            .filter(t => t.label.indexOf(inputValue) > -1)
+                            .filter(t => t.label.toUpperCase().indexOf(searchValue) > -1)
                             .map(t => {
                                 const suggestionData = {
                                     globalCssClassPrefix: this.globalCssClassPrefix,
