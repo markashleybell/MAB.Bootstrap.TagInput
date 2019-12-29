@@ -15,7 +15,10 @@ const stringDataCased: string[] = [
     'dog',
     'CAT',
     'FISH',
+    'fish',
     'CATFISH',
+    'catFish',
+    'catfish',
     'dogFISH',
     'bat'
 ];
