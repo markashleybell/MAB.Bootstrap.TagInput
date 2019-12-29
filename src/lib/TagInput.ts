@@ -85,6 +85,7 @@ export class TagInput<T> {
 
     private readonly tagDataSeparator: string;
     private readonly validTagCharacterKeyCodes: number[];
+    private readonly allowUpperCase: boolean;
 
     private readonly onTagAdded: (instance: TagInput<T>, added: ITag[], selected: ITag[]) => void;
     private readonly onTagRemoved: (instance: TagInput<T>, removed: ITag[], selected: ITag[]) => void;
@@ -106,6 +107,7 @@ export class TagInput<T> {
 
     private readonly warningClass: string;
     private readonly narrowedInputClass: string;
+    private readonly multiCaseInputClass: string;
     private readonly suggestionDropdownClass: string;
     private readonly suggestionDropdownHiddenClass: string;
     private readonly suggestionClass: string;
@@ -130,6 +132,7 @@ export class TagInput<T> {
 
         this.tagDataSeparator = options.tagDataSeparator || '|';
         this.validTagCharacterKeyCodes = options.validTagCharacterKeyCodes || standardValidTagCharacterKeyCodes;
+        this.allowUpperCase = options.allowUpperCase || false;
 
         this.onTagAdded = options.onTagAdded || noop;
         this.onTagRemoved = options.onTagRemoved || noop;
@@ -148,6 +151,7 @@ export class TagInput<T> {
 
         this.warningClass = `${this.globalCssClassPrefix}-tag-warning`;
         this.narrowedInputClass = `${this.globalCssClassPrefix}-input-narrowed`;
+        this.multiCaseInputClass = `${this.globalCssClassPrefix}-input-multicase`;
         this.suggestionDropdownClass = `${this.globalCssClassPrefix}-suggestions`;
         this.suggestionDropdownHiddenClass = `${this.globalCssClassPrefix}-suggestions-hidden`;
         this.suggestionClass = `${this.globalCssClassPrefix}-suggestion`;
@@ -188,6 +192,10 @@ export class TagInput<T> {
 
         originalInput.insertAdjacentElement('afterend', this.tagInputContainer);
         originalInput.remove();
+
+        if (this.allowUpperCase) {
+            this.tagInputTextInput.classList.add(this.multiCaseInputClass);
+        }
 
         this.tagInputContainer.addEventListener('click', e => {
             const element = e.target as HTMLElement;
@@ -241,7 +249,7 @@ export class TagInput<T> {
                         this.tagInputTextInput.value = firstElement.getAttribute('data-label');
                     }
                 } else if (this.validTagCharacterKeyCodes.includes(e.keyCode)) {
-                    const inputValue = this.getTextInputValue();
+                    const inputValue = this.getTextInputValue(this.allowUpperCase);
 
                     if (inputValue.length >= this.minCharsBeforeShowingSuggestions) {
                         const suggestions = this.data
@@ -274,7 +282,7 @@ export class TagInput<T> {
                 e.preventDefault();
             }
 
-            const inputValue = this.getTextInputValue();
+            const inputValue = this.getTextInputValue(this.allowUpperCase);
 
             // If enter is hit, and the input is *not* empty (if the input *is* empty,
             // we don't want to prevent the default action, which is submitting the form)
@@ -398,8 +406,11 @@ export class TagInput<T> {
         }
     }
 
-    private getTextInputValue(): string {
-        return this.tagInputTextInput.value.trim();
+    private getTextInputValue(allowUpperCase: boolean): string {
+        const value = this.tagInputTextInput.value.trim();
+        return !allowUpperCase
+            ? value.toLowerCase()
+            : value;
     }
 
     private getHiddenInputValue(): string {
@@ -419,7 +430,7 @@ export class TagInput<T> {
     }
 
     private hideTagInput(): void {
-        if (this.getTextInputValue() === EmptyString) {
+        if (this.getTextInputValue(this.allowUpperCase) === EmptyString) {
             this.tagInputTextInput.setAttribute('placeholder', EmptyString);
             // When the tag text input loses focus, add a class which narrows it
             // to 1px wide. This is to avoid odd visual effects when the tags in

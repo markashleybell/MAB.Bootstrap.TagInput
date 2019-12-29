@@ -12,6 +12,7 @@ export interface ITagInputOptions<T> {
     allowNewTags?: boolean;
     tagDataSeparator?: string;
     validTagCharacterKeyCodes?: number[];
+    allowUpperCase?: boolean;
     globalCssClassPrefix?: string;
     htmlTemplate?: string;
     itemTemplate?: string;

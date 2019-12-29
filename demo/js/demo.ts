@@ -11,6 +11,15 @@ const stringData: string[] = [
     'bat'
 ];
 
+const stringDataCased: string[] = [
+    'dog',
+    'CAT',
+    'FISH',
+    'CATFISH',
+    'dogFISH',
+    'bat'
+];
+
 let lastDatabaseId = 500;
 
 interface IExampleTagData {
@@ -118,4 +127,14 @@ export const tags5 = new TagInput<string>({
     itemTemplate: document.getElementById('custom-tag').innerHTML,
     suggestionTemplate: document.getElementById('custom-suggestion').innerHTML,
     onTagsChanged: logCallbackDataToConsole('tags5')
+});
+
+export const tags6 = new TagInput<string>({
+    input: document.getElementById('tags6'),
+    data: stringDataCased,
+    getId: item => item,
+    getLabel: item => item,
+    newItemFactory: label => Promise.resolve(label),
+    onTagsChanged: logCallbackDataToConsole('tags6'),
+    allowUpperCase: true
 });

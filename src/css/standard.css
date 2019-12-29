@@ -36,6 +36,11 @@
     border: solid 1px transparent;
     outline: none;
     width: 100px;
+    text-transform: lowercase;
+}
+
+.mab-bootstrap-taginput-input.mab-bootstrap-taginput-input-multicase {
+    text-transform: none;
 }
 
 .mab-bootstrap-taginput-input.mab-bootstrap-taginput-input-narrowed {
