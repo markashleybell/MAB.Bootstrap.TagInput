@@ -251,29 +251,34 @@ export class TagInput<T> {
                 } else if (this.validTagCharacterKeyCodes.includes(e.keyCode)) {
                     const inputValue = this.getTextInputValue(this.allowUpperCase);
 
-                    if (inputValue.length >= this.minCharsBeforeShowingSuggestions) {
-                        const searchValue = inputValue.toUpperCase();
-                        const suggestions = this.data
-                            .filter(t => !this.currentSelection.includes(t))
-                            .filter(t => t.label.toUpperCase().indexOf(searchValue) > -1)
-                            .map(t => {
-                                const suggestionData = {
-                                    globalCssClassPrefix: this.globalCssClassPrefix,
-                                    id: t.id,
-                                    label: t.label
-                                };
-
-                                return Mustache.render(this.suggestionTemplate, suggestionData);
-                            });
-
-                        // TODO: show message (hit enter to add new tag) if no suggestions and new tags allowed?
-                        if (suggestions.length) {
-                            this.tagInputSuggestionDropdown.innerHTML = suggestions.join('');
-                            this.showSuggestions();
-                        }
-                    } else {
+                    if (inputValue.length < this.minCharsBeforeShowingSuggestions) {
                         this.hideSuggestions();
+                        return;
                     }
+
+                    const searchValue = inputValue.toUpperCase();
+
+                    const suggestions = this.data
+                        .filter(t => !this.currentSelection.includes(t))
+                        .filter(t => t.label.toUpperCase().indexOf(searchValue) > -1)
+                        .map(t => {
+                            const suggestionData = {
+                                globalCssClassPrefix: this.globalCssClassPrefix,
+                                id: t.id,
+                                label: t.label
+                            };
+
+                            return Mustache.render(this.suggestionTemplate, suggestionData);
+                        });
+
+                    // TODO: show message (hit enter to add new tag) if no suggestions and new tags allowed?
+                    if (!suggestions.length) {
+                        this.hideSuggestions();
+                        return;
+                    }
+
+                    this.tagInputSuggestionDropdown.innerHTML = suggestions.join('');
+                    this.showSuggestions();
                 }
             });
         }
