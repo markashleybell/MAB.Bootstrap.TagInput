@@ -206,6 +206,10 @@ export class TagInput<T> {
         }, false);
 
         if (this.enableSuggestions) {
+            this.tagInputSuggestionDropdown.addEventListener('mousedown', async e => {
+                e.preventDefault();
+            });
+
             this.tagInputSuggestionDropdown.addEventListener('click', async e => {
                 const element = e.target as HTMLElement;
                 const label = element.getAttribute('data-label');
@@ -327,6 +331,7 @@ export class TagInput<T> {
         this.tagInputTextInput.addEventListener('blur', e => {
             if (isTextInput(e.target)) {
                 this.clearTagInput();
+                this.hideSuggestions();
                 if (this.currentSelection.length) {
                     this.hideTagInput();
                 }
