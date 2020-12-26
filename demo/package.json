@@ -19,7 +19,7 @@
         "webpack-cli": "^3.3.12"
     },
     "peerDependencies": {
-        "mustache": "3.1.0"
+        "mustache": "^4.1.0"
     },
     "scripts": {
         "build": "webpack --mode=production --display-modules"
