@@ -82,3 +82,9 @@
     background-color: #ff00ff;
     color: #fff;
 }
+
+.custom-tag .bi {
+    margin-left: 5px;
+    cursor: pointer;
+    display: flex;
+}

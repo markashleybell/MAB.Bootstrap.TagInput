@@ -67,7 +67,7 @@ const standardHtmlTemplate =
 </div>`;
 
 const standardItemTemplate =
-'<div class="{{globalCssClassPrefix}}-tag" data-id="{{id}}" data-label="{{label}}">{{label}} <i class="fa fa-times"></i></div>';
+'<div class="{{globalCssClassPrefix}}-tag" data-id="{{id}}" data-label="{{label}}">{{label}} <i class="{{globalCssClassPrefix}}-removetag fa fa-times"></i></div>';
 
 const standardSuggestionTemplate =
 '<div class="{{globalCssClassPrefix}}-suggestion" data-id="{{id}}" data-label="{{label}}">{{label}}</div>';
@@ -199,7 +199,7 @@ export class TagInput<T> {
 
         this.tagInputContainer.addEventListener('click', e => {
             const element = e.target as HTMLElement;
-            if (element.classList.contains('fa-times')) {
+            if (element.classList.contains(`${this.globalCssClassPrefix}-removetag`)) {
                 e.stopPropagation();
                 this.removeTag(element.parentElement);
             }
