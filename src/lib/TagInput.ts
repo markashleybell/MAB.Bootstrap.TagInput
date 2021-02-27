@@ -7,25 +7,20 @@ import { ITagInputOptions } from './ITagInputOptions';
 function noop(...args: any[]): any {
 }
 
-// So range(10, 10, 5) = [10, 20, 30, 40, 50]
-function range(start: number, step: number, count: number): number[] {
-    return Array.from({length: count}, (_, k) => (k * step) + start);
-}
-
 function matches(el: Element, selector: string): boolean {
     return (el.matches || el.webkitMatchesSelector).call(el, selector);
 }
 
-enum KeyCodes {
-    ENTER = 13,
-    TAB = 9,
-    BACKSPACE = 8,
-    HOME = 35,
-    END = 36,
-    LEFT_ARROW = 37,
-    UP_ARROW = 38,
-    RIGHT_ARROW = 39,
-    DOWN_ARROW = 40
+enum Key {
+    ENTER = 'Enter',
+    TAB = 'Tab',
+    BACKSPACE = 'Backspace',
+    HOME = 'Home',
+    END = 'End',
+    LEFT_ARROW = 'ArrowLeft',
+    UP_ARROW = 'ArrowUp',
+    RIGHT_ARROW = 'ArrowRight',
+    DOWN_ARROW = 'ArrowDown'
 }
 
 enum KeyNavDirection {
@@ -35,26 +30,34 @@ enum KeyNavDirection {
 
 const EmptyString = '';
 
-const controlKeyCodes = [
-    KeyCodes.ENTER,
-    KeyCodes.TAB,
-    KeyCodes.BACKSPACE,
-    KeyCodes.HOME,
-    KeyCodes.END,
-    KeyCodes.LEFT_ARROW,
-    KeyCodes.UP_ARROW,
-    KeyCodes.RIGHT_ARROW,
-    KeyCodes.DOWN_ARROW
+const controlKeys = [
+    Key.ENTER,
+    Key.TAB,
+    Key.BACKSPACE,
+    Key.HOME,
+    Key.END,
+    Key.LEFT_ARROW,
+    Key.UP_ARROW,
+    Key.RIGHT_ARROW,
+    Key.DOWN_ARROW
 ];
 
-// Concatenate the key code ranges for numbers and letters
-// Note that these are *key* codes, so the letter codes are the same for upper and lower case
-const alphaNumericKeyCodes = range(48, 1, 10).concat(range(65, 1, 26));
+// Concatenate the key ranges for numbers and letters
+const alphaKeys = 'abcdefghijklmnopqrstuvwxyz';
+const alphaKeysLower = alphaKeys.split('');
+const alphaKeysUpper = alphaKeys.toUpperCase().split('');
+
+const numericKeys = '0123456789'.split('');
 
 // The only symbol allowed by default is minus (-), which can be used to separate words in a tag
-const symbolKeyCodes = [189];
+const symbolKeys = ['-'];
 
-const standardValidTagCharacterKeyCodes: number[] = alphaNumericKeyCodes.concat(symbolKeyCodes).concat(controlKeyCodes);
+const standardValidTagCharacters: string[] = 
+    alphaKeysLower
+        .concat(alphaKeysUpper)
+        .concat(numericKeys)
+        .concat(symbolKeys)
+        .concat(controlKeys);
 
 const standardHtmlTemplate =
 `<div class="{{globalCssClassPrefix}}{{#containerClasses}} {{containerClasses}}{{/containerClasses}}">
@@ -84,7 +87,7 @@ export class TagInput<T> {
     private readonly allowNewTags: boolean;
 
     private readonly tagDataSeparator: string;
-    private readonly validTagCharacterKeyCodes: number[];
+    private readonly validTagCharacters: string[];
     private readonly allowUpperCase: boolean;
 
     private readonly onTagAdded: (instance: TagInput<T>, added: ITag[], selected: ITag[]) => void;
@@ -131,7 +134,7 @@ export class TagInput<T> {
         }
 
         this.tagDataSeparator = options.tagDataSeparator || '|';
-        this.validTagCharacterKeyCodes = options.validTagCharacterKeyCodes || standardValidTagCharacterKeyCodes;
+        this.validTagCharacters = options.validTagCharacters || standardValidTagCharacters;
         this.allowUpperCase = options.allowUpperCase || false;
 
         this.onTagAdded = options.onTagAdded || noop;
@@ -218,9 +221,9 @@ export class TagInput<T> {
 
             this.tagInputTextInput.addEventListener('keyup', e => {
                 // If the up or down arrows are hit, select the previous/next item in the suggestion list
-                if (e.keyCode === KeyCodes.UP_ARROW || e.keyCode === KeyCodes.DOWN_ARROW) {
+                if (e.key === Key.UP_ARROW || e.key === Key.DOWN_ARROW) {
 
-                    const direction = e.keyCode === KeyCodes.DOWN_ARROW ? KeyNavDirection.DOWN : KeyNavDirection.UP;
+                    const direction = e.key === Key.DOWN_ARROW ? KeyNavDirection.DOWN : KeyNavDirection.UP;
 
                     const selectedItem = this.tagInputSuggestionDropdown.querySelector(`.${this.selectedSuggestionClass}`);
 
@@ -252,7 +255,7 @@ export class TagInput<T> {
                         firstElement.classList.add(this.selectedSuggestionClass);
                         this.tagInputTextInput.value = firstElement.getAttribute('data-label');
                     }
-                } else if (this.validTagCharacterKeyCodes.includes(e.keyCode)) {
+                } else if (this.validTagCharacters.includes(e.key)) {
                     const inputValue = this.getTextInputValue(this.allowUpperCase);
 
                     if (inputValue.length < this.minCharsBeforeShowingSuggestions) {
@@ -288,7 +291,7 @@ export class TagInput<T> {
         }
 
         this.tagInputTextInput.addEventListener('keydown', async e => {
-            if (!this.validTagCharacterKeyCodes.includes(e.keyCode)) {
+            if (!this.validTagCharacters.includes(e.key)) {
                 e.preventDefault();
             }
 
@@ -296,7 +299,7 @@ export class TagInput<T> {
 
             // If enter is hit, and the input is *not* empty (if the input *is* empty,
             // we don't want to prevent the default action, which is submitting the form)
-            if (e.keyCode === KeyCodes.ENTER && inputValue !== EmptyString) {
+            if (e.key === Key.ENTER && inputValue !== EmptyString) {
                 // Stop the form being submitted and prevent event bubbling
                 e.preventDefault();
                 e.stopPropagation();
@@ -306,7 +309,7 @@ export class TagInput<T> {
 
             // If backspace is hit and there's nothing in the input (if the input *isn't* empty,
             // we don't want to prevent the default action, which is deleting a character)
-            if (e.keyCode === KeyCodes.BACKSPACE && inputValue === EmptyString) {
+            if (e.key === Key.BACKSPACE && inputValue === EmptyString) {
                 // Remove the last tag span before the hidden data input
                 const tagElements = this.tagInputContainer.querySelectorAll(`.${this.globalCssClassPrefix}-tag`);
 

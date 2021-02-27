@@ -11,7 +11,7 @@ export interface ITagInputOptions<T> {
     minCharsBeforeShowingSuggestions?: number;
     allowNewTags?: boolean;
     tagDataSeparator?: string;
-    validTagCharacterKeyCodes?: number[];
+    validTagCharacters?: string[];
     allowUpperCase?: boolean;
     globalCssClassPrefix?: string;
     htmlTemplate?: string;
