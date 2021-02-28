@@ -320,6 +320,21 @@ export class TagInput<T> {
             }
         });
 
+        this.tagInputTextInput.addEventListener('paste', async e => {
+            const pastedText = e.clipboardData.getData('text');
+
+            // Handles tags separated with spaces, commas or pipes
+            const newTags = pastedText
+                .replace(/\s{0,}[,| ]\s{0,}/gi, '|')
+                .split('|');
+
+            for (const tag of newTags) {
+                await this.addTag(tag);
+            }
+
+            e.preventDefault();
+        });
+
         function isTextInput(target: EventTarget) {
             const element = target as HTMLElement;
             return matches(element, 'input[type=text]');
