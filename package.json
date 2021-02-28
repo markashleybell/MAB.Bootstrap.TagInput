@@ -1,6 +1,6 @@
 {
     "name": "mab-bootstrap-taginput",
-    "version": "0.3.0",
+    "version": "0.4.0",
     "description": "A nice, simple tag input with minimal dependencies, designed for Bootstrap 4.X.",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
