@@ -1,10 +1,14 @@
 ﻿.mab-bootstrap-taginput {
     display: flex;
+    flex-wrap: wrap;
+    align-items: center;
     cursor: text;
 }
 
 .mab-bootstrap-taginput.form-control {
     line-height: normal;
+    height: auto;
+    padding-top: 0;
 }
 
 .mab-bootstrap-taginput-tag {
@@ -12,11 +16,12 @@
     background-color: #007bff;
     display: inline-flex;
     align-items: center;
-    padding: .25em .4em;
+    padding: .15em .4em;
     font-size: 90%;
     font-weight: 700;
     white-space: nowrap;
     border-radius: .25rem;
+    margin-top: .375rem;
     margin-right: 5px;
     transition: background-color 1600ms ease-in;
 }
@@ -38,6 +43,8 @@
     outline: none;
     width: 100px;
     text-transform: lowercase;
+    padding: 0;
+    margin-top: .375rem;
 }
 
 .mab-bootstrap-taginput-input.mab-bootstrap-taginput-input-multicase {
