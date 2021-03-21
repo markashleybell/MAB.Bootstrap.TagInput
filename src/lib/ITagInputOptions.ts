@@ -9,6 +9,7 @@ export interface ITagInputOptions<T> {
     newItemFactory?: (label: string) => Promise<T>;
     enableSuggestions?: boolean;
     minCharsBeforeShowingSuggestions?: number;
+    maxNumberOfSuggestions?: number;
     allowNewTags?: boolean;
     tagDataSeparator?: string;
     validTagCharacters?: string[];

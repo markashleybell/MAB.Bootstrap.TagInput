@@ -84,6 +84,7 @@ export class TagInput<T> {
 
     private readonly enableSuggestions: boolean;
     private readonly minCharsBeforeShowingSuggestions: number;
+    private readonly maxNumberOfSuggestions: number;
     private readonly allowNewTags: boolean;
 
     private readonly tagDataSeparator: string;
@@ -127,6 +128,7 @@ export class TagInput<T> {
 
         this.enableSuggestions = options.enableSuggestions === false ? false : true;
         this.minCharsBeforeShowingSuggestions = options.minCharsBeforeShowingSuggestions || 2;
+        this.maxNumberOfSuggestions = options.maxNumberOfSuggestions || 100;
         this.allowNewTags = options.allowNewTags === false ? false : true;
 
         if (this.allowNewTags && !this.newItemFactory) {
@@ -284,7 +286,10 @@ export class TagInput<T> {
                         return;
                     }
 
-                    this.tagInputSuggestionDropdown.innerHTML = suggestions.join('');
+                    this.tagInputSuggestionDropdown.innerHTML = suggestions
+                        .slice(0, this.maxNumberOfSuggestions)
+                        .join('');
+
                     this.showSuggestions();
                 }
             });

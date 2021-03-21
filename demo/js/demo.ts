@@ -23,6 +23,8 @@ const stringDataCased: string[] = [
     'bat'
 ];
 
+const bigData: string[] = Array.from(Array(100).keys()).map(i => 'item-' + i);
+
 let lastDatabaseId = 500;
 
 interface IExampleTagData {
@@ -140,4 +142,14 @@ export const tags6 = new TagInput<string>({
     newItemFactory: label => Promise.resolve(label),
     onTagsChanged: logCallbackDataToConsole('tags6'),
     allowUpperCase: true
+});
+
+export const tags7 = new TagInput<string>({
+    input: document.getElementById('tags7'),
+    data: bigData,
+    getId: item => item,
+    getLabel: item => item,
+    newItemFactory: label => Promise.resolve(label),
+    onTagsChanged: logCallbackDataToConsole('tags7'),
+    maxNumberOfSuggestions: 5
 });
