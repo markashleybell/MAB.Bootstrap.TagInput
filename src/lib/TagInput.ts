@@ -267,9 +267,7 @@ export class TagInput<T> {
 
                     const searchValue = inputValue.toUpperCase();
 
-                    const suggestions = this.data
-                        .filter(t => !this.currentSelection.includes(t))
-                        .filter(t => t.label.toUpperCase().indexOf(searchValue) > -1)
+                    const suggestions = this.searchTags(this.data, searchValue)
                         .map(t => {
                             const suggestionData = {
                                 globalCssClassPrefix: this.globalCssClassPrefix,
@@ -498,5 +496,21 @@ export class TagInput<T> {
         this.updateHiddenInput(this.currentSelection);
         this.onTagRemoved(this, [removedTag], this.currentSelection);
         this.onTagsChanged(this, [], [removedTag], this.currentSelection);
+    }
+
+    private searchTags(tags: ITag[], query: string): ITag[] {
+        return tags
+            .filter(t => !this.currentSelection.includes(t))
+            .filter(t => t.label.toUpperCase().indexOf(query) > -1)
+            .map(t => <[number, ITag]>[t.label.toUpperCase().indexOf(query), t])
+            .sort((a, b) => {
+                // If the position of the substring match differs, sort by that
+                if (a[0] !== b[0]) {
+                    return a[0] - b[0];
+                }
+                // Otherwise, sort alphabetically
+                return a[1].label.localeCompare(b[1].label)
+            })
+            .map(f => f[1]);
     }
 }

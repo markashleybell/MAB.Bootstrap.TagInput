@@ -25,6 +25,16 @@ const stringDataCased: string[] = [
 
 const bigData: string[] = Array.from(Array(100).keys()).map(i => 'item-' + i);
 
+const allContainWordData: string[] = [
+    'metaprogramming',
+    'abcxyz',
+    'abc',
+    'defxyz',
+    'programming',
+    'xyz',
+    'abcdefxyz',
+];
+
 let lastDatabaseId = 500;
 
 interface IExampleTagData {
@@ -151,5 +161,15 @@ export const tags7 = new TagInput<string>({
     getLabel: item => item,
     newItemFactory: label => Promise.resolve(label),
     onTagsChanged: logCallbackDataToConsole('tags7'),
+    maxNumberOfSuggestions: 5
+});
+
+export const tags8 = new TagInput<string>({
+    input: document.getElementById('tags8'),
+    data: allContainWordData,
+    getId: item => item,
+    getLabel: item => item,
+    newItemFactory: label => Promise.resolve(label),
+    onTagsChanged: logCallbackDataToConsole('tags8'),
     maxNumberOfSuggestions: 5
 });
