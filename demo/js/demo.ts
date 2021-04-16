@@ -173,3 +173,5 @@ export const tags8 = new TagInput<string>({
     onTagsChanged: logCallbackDataToConsole('tags8'),
     maxNumberOfSuggestions: 5
 });
+
+tags2.focus();

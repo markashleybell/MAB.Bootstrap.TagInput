@@ -362,7 +362,7 @@ export class TagInput<T> {
         // Focus the text input when the control container is clicked, which triggers
         // the show/hide behaviours defined in the handlers above
         this.tagInputContainer.addEventListener('click', e => {
-            this.focusTagInput();
+            this.focus();
         });
 
         // If the control already has some tags in it, hide the text input on load
@@ -373,6 +373,10 @@ export class TagInput<T> {
 
     public getValue(): string {
         return this.getHiddenInputValue();
+    }
+
+    public focus(): void {
+        this.tagInputTextInput.focus();
     }
 
     private async addTag(label: string): Promise<void> {
@@ -455,10 +459,6 @@ export class TagInput<T> {
         }
         // Remove the narrowing class, restoring input to its original width
         this.tagInputTextInput.classList.remove(this.narrowedInputClass);
-    }
-
-    private focusTagInput(): void {
-        this.tagInputTextInput.focus();
     }
 
     private hideTagInput(): void {
