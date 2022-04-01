@@ -1,6 +1,6 @@
 {
     "include": [
-        "./src/lib/**/*.ts"
+        "./js/**/*.ts"
     ],
     "compilerOptions": {
         "target": "es5",

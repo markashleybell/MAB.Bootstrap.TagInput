@@ -36,9 +36,8 @@
         "mustache": "^4.2.0"
     },
     "scripts": {
-        "clean": "del-cli dist css",
-        "copycss": "copyfiles -u 2 \"src/css/*.css\" css",
+        "clean": "del-cli dist",
         "compile": "tsc",
-        "build": "run-s clean compile copycss"
+        "build": "run-s clean compile"
     }
 }

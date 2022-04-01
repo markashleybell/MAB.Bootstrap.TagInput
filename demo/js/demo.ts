@@ -1,4 +1,4 @@
-import { ITag, TagInput } from '../../src/lib';
+import { ITag, TagInput } from '../../src/js';
 
 import '../../src/css/standard.css';
 
