@@ -1,0 +1,23 @@
+name: Build
+on:
+  push
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Build Library
+        working-directory: ./src
+        run: |
+          npm ci
+          npm run build
+      - name: Build Demo
+        working-directory: ./demo
+        run: |
+          npm ci
+          npm run build
