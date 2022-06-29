@@ -57,6 +57,15 @@ const objectData: IExampleTagData[] = [
     { id: '600', label: 'bat' }
 ];
 
+const objectData2: IExampleTagData[] = [
+    { id: '100', label: 'Dog: this is a dog' },
+    { id: '200', label: 'Cat: this is a dog' },
+    { id: '300', label: 'Fish: this is a fish' },
+    { id: '400', label: 'Catfish: this is a fish' },
+    { id: '500', label: 'Dogfish: this is a fish' },
+    { id: '600', label: 'Bat: this is a bat' }
+];
+
 // Set up an on-screen console for the demo
 const eventConsole = document.getElementById('event-console');
 const valueConsole = document.getElementById('value-console');
@@ -172,6 +181,16 @@ export const tags8 = new TagInput<string>({
     newItemFactory: label => Promise.resolve(label),
     onTagsChanged: logCallbackDataToConsole('tags8'),
     maxNumberOfSuggestions: 5
+});
+
+export const tags9 = new TagInput<IExampleTagData>({
+    input: document.getElementById('tags9'),
+    data: objectData2,
+    getId: item => item.id,
+    getLabel: item => item.label,
+    allowUpperCase: true,
+    allowNewTags: false,
+    onTagsChanged: logCallbackDataToConsole('tags9')
 });
 
 tags2.focus();
