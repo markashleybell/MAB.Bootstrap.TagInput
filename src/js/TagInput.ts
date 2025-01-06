@@ -52,7 +52,7 @@ const numericKeys = '0123456789'.split('');
 // The only symbol allowed by default is minus (-), which can be used to separate words in a tag
 const symbolKeys = ['-'];
 
-const standardValidTagCharacters: string[] = 
+const standardValidTagCharacters: string[] =
     alphaKeysLower
         .concat(alphaKeysUpper)
         .concat(numericKeys)
@@ -377,6 +377,11 @@ export class TagInput<T> {
 
     public focus(): void {
         this.tagInputTextInput.focus();
+    }
+
+    public updateData(data: T[]): void {
+        this.data.length = 0;
+        this.data.push(...data.map(item => ({ id: this.getId(item), label: this.getLabel(item) })));
     }
 
     private async addTag(label: string): Promise<void> {
