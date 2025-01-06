@@ -52,7 +52,7 @@ const numericKeys = '0123456789'.split('');
 // The only symbol allowed by default is minus (-), which can be used to separate words in a tag
 const symbolKeys = ['-'];
 
-const standardValidTagCharacters: string[] = 
+const standardValidTagCharacters: string[] =
     alphaKeysLower
         .concat(alphaKeysUpper)
         .concat(numericKeys)
