@@ -379,6 +379,11 @@ export class TagInput<T> {
         this.tagInputTextInput.focus();
     }
 
+    public updateData(data: T[]): void {
+        this.data.length = 0;
+        this.data.push(...data.map(item => ({ id: this.getId(item), label: this.getLabel(item) })));
+    }
+
     private async addTag(label: string): Promise<void> {
         // Check if the tag which was entered is already selected (we don't allow duplicates)
         const selectedTag = this.currentSelection.find(t => t.label === label);
